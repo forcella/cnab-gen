@@ -1,0 +1,6 @@
+{
+  "hosting": {
+    "site": "cnab-generator",
+    "public": "build"
+  }
+}
