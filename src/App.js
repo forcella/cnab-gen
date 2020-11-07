@@ -1,24 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import Routes from './routes'
+import { Cnab150Provider } from "./pages/Cnab150/context"
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Projeto cnab-gen
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Cnab150Provider>
+      <Routes />
+    </Cnab150Provider>
   );
 }
 
