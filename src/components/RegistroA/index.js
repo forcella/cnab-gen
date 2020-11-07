@@ -1,8 +1,6 @@
 import React from "react";
 
-// import 'date-fns';
 import Typography from '@material-ui/core/Typography';
-
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
@@ -16,15 +14,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 
 import Grid from '@material-ui/core/Grid';
-
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-
-import { TIPO_REGISTROS } from "../../busines/Registro/ListaTiposRegistro";
-
-import IconButton from '@material-ui/core/IconButton';
-
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {

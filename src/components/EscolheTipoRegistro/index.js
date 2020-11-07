@@ -15,8 +15,8 @@ import Grid from '@material-ui/core/Grid';
 
 import { TIPO_REGISTROS } from "../../busines/Registro/ListaTiposRegistro";
 
-import { useCbnab150Context, addRegistro, removeRegistro } from "../../pages/Cnab150/context"
-
+import { useCbnab150Context } from "../../provider/cnab150Provider/provider"
+import { addRegistro, removeRegistro } from "../../provider/cnab150Provider/actions"
 
 const useStyles = makeStyles((theme) => ({
     paper: {

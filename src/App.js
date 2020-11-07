@@ -1,6 +1,5 @@
 import Routes from './routes'
-import { Cnab150Provider } from "./pages/Cnab150/context"
-
+import { Cnab150Provider } from "./provider/cnab150Provider/provider"
 
 function App() {
   return (

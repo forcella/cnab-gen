@@ -10,7 +10,9 @@ import RegistroA from "../../components/RegistroA";
 import EscolheTipoRegistro from "../../components/EscolheTipoRegistro";
 import NovoRegistro from "../../components/NovoRegistro";
 
-import { Cnab150Provider, useCbnab150Context, addRegistro } from "./context";
+import { useCbnab150Context } from "../../provider/cnab150Provider/provider";
+
+import { addRegistro } from "../../provider/cnab150Provider/actions"
 
 const useStyles = makeStyles((theme) => ({
     mainContainer: {
