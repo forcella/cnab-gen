@@ -73,15 +73,16 @@ function EscolheTipoRegistro (props) {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={1}>
+          <div style={{ position: 'absolute', right: '8ch' }}>
             <IconButton
               aria-label='delete'
               className={classes.margin}
               onClick={handleRemove}
+
             >
               <DeleteIcon fontSize='large' />
             </IconButton>
-          </Grid>
+          </div>
         </Grid>
       </Paper>
     </Slide>

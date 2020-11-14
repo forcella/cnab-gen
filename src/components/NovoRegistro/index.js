@@ -53,14 +53,14 @@ function NovoRegistro (props) {
             ))
           }
 
-          <Grid item xs={1}>
+          <div style={{ position: 'absolute', right: '8ch' }}>
             <IconButton
               aria-label='delete'
               onClick={handleRemove}
             >
               <DeleteIcon fontSize='large' />
             </IconButton>
-          </Grid>
+          </div>
 
         </Grid>
       </Paper>
