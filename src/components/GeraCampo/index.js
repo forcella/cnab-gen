@@ -23,13 +23,12 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const GeraCampo = (props) => {
-  const { tipo, id, label } = props.registro
+  const { tipo, id, label, disabled } = props.registro
 
   const classes = useStyles()
   const [selectedDate, setSelectedDate] = React.useState(null)
 
   const handleDateChange = (date) => {
-    console.log(date)
     setSelectedDate(date)
   }
 
@@ -37,13 +36,13 @@ const GeraCampo = (props) => {
     case 'text':
       return (
         <Grid item>
-          <TextField id={id} label={label} />
+          <TextField id={id} label={label} disabled={disabled} />
         </Grid>
       )
     case 'number':
       return (
         <Grid item>
-          <TextField id={id} label={label} type={tipo} />
+          <TextField id={id} label={label} type={tipo} disabled={disabled} />
         </Grid>
       )
     case 'date':
@@ -63,6 +62,7 @@ const GeraCampo = (props) => {
               KeyboardButtonProps={{
                 'aria-label': 'change date'
               }}
+              disabled={disabled}
             />
           </MuiPickersUtilsProvider>
         </Grid>

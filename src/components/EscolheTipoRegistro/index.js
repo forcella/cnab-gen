@@ -17,7 +17,7 @@ import Grid from '@material-ui/core/Grid'
 import { TIPO_REGISTROS } from '../../busines/Registro/ListaTiposRegistro'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
-import { addRegistro, removeRegistro } from '../../provider/cnab150Provider/actions'
+import { subtistitui, removeRegistro } from '../../provider/cnab150Provider/actions'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 function EscolheTipoRegistro (props) {
   const { id } = props?.registro
+  const { elevation } = props
   const classes = useStyles()
 
   const [tipoRegistro, setTipoRegistro] = React.useState('')
@@ -42,8 +43,7 @@ function EscolheTipoRegistro (props) {
   const handleChange = (event) => {
     const { value } = event.target
     setTipoRegistro(value)
-    addRegistro(useCbnab150Dispatch, TIPO_REGISTROS[value])
-    handleRemove()
+    subtistitui(useCbnab150Dispatch, id, TIPO_REGISTROS[value], setShow, setDirection)
   }
 
   const handleRemove = () => {
@@ -52,7 +52,7 @@ function EscolheTipoRegistro (props) {
 
   return (
     <Slide in={show} direction={direction}>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={elevation} className={classes.paper}>
         <Grid container>
           <Grid item xs={11}>
             <FormControl className={classes.formControl}>

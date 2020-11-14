@@ -42,7 +42,6 @@ function RegistroA () {
   const [selectedDate, setSelectedDate] = React.useState(null)
 
   const handleDateChange = (date) => {
-    console.log(date)
     setSelectedDate(date)
   }
 

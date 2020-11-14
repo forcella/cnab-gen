@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
+
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
@@ -12,7 +14,7 @@ import NovoRegistro from '../../components/NovoRegistro'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 
-import { addRegistro } from '../../provider/cnab150Provider/actions'
+import { addRegistro, reordena } from '../../provider/cnab150Provider/actions'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -35,18 +37,54 @@ function Cbnab150 () {
     addRegistro(useCbnab150Dispatch, {})
   }
 
+  const handleOnDragEnd = result => {
+    // dropped outside the list
+    if (!result.destination) {
+      return
+    }
+    reordena(useCbnab150Dispatch, result.source.index, result.destination.index)
+  }
+
+  const handleOnDrag = isDraggin => isDraggin ? 3 : 1
+
   return (
     <Container className={classes.mainContainer}>
       <RegistroA />
 
-      {
-        useCnab150State.registros.map(registro => (
-          !registro.data
-            ? <EscolheTipoRegistro key={registro.id} registro={registro} />
-            : <NovoRegistro key={registro.id} registro={registro} />
-        ))
+      <DragDropContext onDragEnd={handleOnDragEnd}>
+        <Droppable droppableId='droppable'>
+          {(provided, snapshot) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {useCnab150State.registros.map((item, index) => (
+                <Draggable key={item.id} draggableId={'id' + item.id} index={index}>
+                  {(provided, snapshot) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      {!item.data
+                        ? <EscolheTipoRegistro
+                            key={item.id} registro={item}
+                            elevation={handleOnDrag(snapshot.isDragging)}
 
-     }
+                          />
+                        : <NovoRegistro
+                            key={item.id} registro={item}
+                            elevation={handleOnDrag(snapshot.isDragging)}
+                          />}
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
 
       <Fab
         color='primary' aria-label='add'

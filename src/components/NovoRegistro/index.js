@@ -27,7 +27,10 @@ const useStyles = makeStyles((theme) => ({
 function NovoRegistro (props) {
   const { data, id } = props?.registro
 
+  const { elevation } = props
+
   const [show, setShow] = React.useState(true)
+
   const [direction, setDirection] = React.useState('right')
 
   const [, useCbnab150Dispatch] = useCbnab150Context()
@@ -39,16 +42,16 @@ function NovoRegistro (props) {
 
   return (
     <Slide in={show} direction={direction}>
-      <Paper elevation={3} className={classes.paper}>
+      <Paper elevation={elevation} className={classes.paper}>
         <Typography variant='subtitle1'>
           Registro: "{data[0]?.valor}"
         </Typography>
         <Grid container spacing={2}>
           {
-                        data.map(registro => (
-                          <GeraCampo key={registro.id} registro={registro} />
-                        ))
-                    }
+            data.map(registro => (
+              <GeraCampo key={registro.id} registro={registro} />
+            ))
+          }
 
           <Grid item xs={1}>
             <IconButton

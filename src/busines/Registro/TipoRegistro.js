@@ -22,7 +22,7 @@ export const registroB = {
     new CampoRegistro({ id: 'B03', inicio: 27, fim: 30, valor: null, tipo: 'number', label: 'Agência para Débito' }),
     new CampoRegistro({ id: 'B04', inicio: 31, fim: 50, valor: null, tipo: 'text', label: 'ID do Cliente' }),
     new CampoRegistro({ id: 'B05', inicio: 51, fim: 58, valor: null, tipo: 'date', label: 'Data da Opção/Exclusão' }),
-    new CampoRegistro({ id: 'B06', inicio: 59, fim: 149, valor: null, tipo: 'text', label: 'Reservado para o futuro' }),
+    new CampoRegistro({ id: 'B06', inicio: 59, fim: 149, valor: null, tipo: 'text', label: 'Reservado para o futuro', disabled: true }),
     new CampoRegistro({ id: 'B07', inicio: 150, fim: 150, valor: null, tipo: 'text', label: 'Código do Movimento' })
   ]
 }
