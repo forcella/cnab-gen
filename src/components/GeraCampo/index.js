@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import MomentUtils from '@date-io/moment'
+import { v4 as uuidv4 } from 'uuid'
 
 import {
   MuiPickersUtilsProvider,
@@ -46,7 +47,7 @@ const GeraCampo = (props) => {
 
   React.useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
-      if (value && value.length > 0) editaRegistro(useCbnab150Dispatch, idPai, id, value)
+      if (value) editaRegistro(useCbnab150Dispatch, idPai, id, value)
     }, 1000)
     return () => clearTimeout(delayDebounceFn)
   }, [value, id, idPai, useCbnab150Dispatch])
@@ -55,13 +56,13 @@ const GeraCampo = (props) => {
     case 'text':
       return (
         <Grid item>
-          <TextField id={id} label={label} disabled={disabled} value={value} onChange={handleValueChange} />
+          <TextField id={uuidv4()} label={label} disabled={disabled} value={value} onChange={handleValueChange} />
         </Grid>
       )
     case 'number':
       return (
         <Grid item>
-          <TextField id={id} label={label} type={tipo} disabled={disabled} />
+          <TextField id={uuidv4()} label={label} type={tipo} disabled={disabled} />
         </Grid>
       )
     case 'date':

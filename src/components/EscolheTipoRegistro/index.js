@@ -14,7 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
 
-import { TIPO_REGISTROS } from '../../busines/Registro/ListaTiposRegistro'
+import { geraRegistro } from '../../busines/Registro/TipoRegistro'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 import { subtistitui, removeRegistro } from '../../provider/cnab150Provider/actions'
@@ -40,10 +40,11 @@ function EscolheTipoRegistro (props) {
   const [direction, setDirection] = React.useState('right')
   const [, useCbnab150Dispatch] = useCbnab150Context()
 
-  const handleChange = (event) => {
+  const handleChange = async (event) => {
     const { value } = event.target
+    const registro = geraRegistro(value)
     setTipoRegistro(value)
-    subtistitui(useCbnab150Dispatch, id, TIPO_REGISTROS[value], setShow, setDirection)
+    subtistitui(useCbnab150Dispatch, id, registro, setShow, setDirection)
   }
 
   const handleRemove = () => {

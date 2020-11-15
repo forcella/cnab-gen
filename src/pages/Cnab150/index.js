@@ -14,7 +14,7 @@ import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 
 import { addRegistro, reordena } from '../../provider/cnab150Provider/actions'
 
-import { TIPO_REGISTROS } from '../../busines/Registro/ListaTiposRegistro'
+import { registroA } from '../../busines/Registro/TipoRegistro'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -34,7 +34,7 @@ function Cbnab150 () {
   const [useCnab150State, useCbnab150Dispatch] = useCbnab150Context()
 
   React.useEffect(() => {
-    addRegistro(useCbnab150Dispatch, TIPO_REGISTROS.A)
+    if (useCnab150State?.registros?.length === 0) addRegistro(useCbnab150Dispatch, registroA())
   }, [])
 
   const handleAddRegistro = () => {
@@ -42,7 +42,6 @@ function Cbnab150 () {
   }
 
   const handleOnDragEnd = result => {
-    // dropped outside the list
     if (!result.destination) {
       return
     }
