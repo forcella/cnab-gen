@@ -16,3 +16,17 @@ export const replaceInArray = (arr, id, newElement) => {
   arr[index] = { id: new Date().getTime(), ...newElement }
   return arr
 }
+
+export const editElement = (arr, idPai, id, value) => {
+  arr.forEach(ele => {
+    if (ele.id === idPai) {
+      ele.data.forEach(data => {
+        if (data.id === id) {
+          data.valor = value
+        }
+      })
+    }
+  })
+  console.log(arr)
+  return arr
+}

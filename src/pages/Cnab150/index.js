@@ -7,14 +7,14 @@ import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 
-import RegistroA from '../../components/RegistroA'
-
 import EscolheTipoRegistro from '../../components/EscolheTipoRegistro'
 import NovoRegistro from '../../components/NovoRegistro'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 
 import { addRegistro, reordena } from '../../provider/cnab150Provider/actions'
+
+import { TIPO_REGISTROS } from '../../busines/Registro/ListaTiposRegistro'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -33,6 +33,10 @@ function Cbnab150 () {
 
   const [useCnab150State, useCbnab150Dispatch] = useCbnab150Context()
 
+  React.useEffect(() => {
+    addRegistro(useCbnab150Dispatch, TIPO_REGISTROS.A)
+  }, [])
+
   const handleAddRegistro = () => {
     addRegistro(useCbnab150Dispatch, {})
   }
@@ -49,8 +53,6 @@ function Cbnab150 () {
 
   return (
     <Container className={classes.mainContainer}>
-      <RegistroA />
-
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId='droppable'>
           {(provided, snapshot) => (
@@ -70,7 +72,6 @@ function Cbnab150 () {
                         ? <EscolheTipoRegistro
                             key={item.id} registro={item}
                             elevation={handleOnDrag(snapshot.isDragging)}
-
                           />
                         : <NovoRegistro
                             key={item.id} registro={item}

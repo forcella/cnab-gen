@@ -8,5 +8,6 @@ export const TIPO_REGISTROS = {
   E: [],
   F: [],
   G: [],
-  H: []
+  H: [],
+  Z: []
 }

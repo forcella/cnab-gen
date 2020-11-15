@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 function NovoRegistro (props) {
   const { data, id } = props?.registro
 
+  const { valor } = data[0]
+
   const { elevation } = props
 
   const [show, setShow] = React.useState(true)
@@ -44,24 +46,29 @@ function NovoRegistro (props) {
     <Slide in={show} direction={direction}>
       <Paper elevation={elevation} className={classes.paper}>
         <Typography variant='subtitle1'>
-          Registro: "{data[0]?.valor}"
+          Registro: "{valor}"
         </Typography>
         <Grid container spacing={2}>
           {
             data.map(registro => (
-              <GeraCampo key={registro.id} registro={registro} />
+              <GeraCampo key={registro.id} registro={registro} idPai={id} />
             ))
           }
 
-          <div style={{ position: 'absolute', right: '8ch' }}>
-            <IconButton
-              aria-label='delete'
-              onClick={handleRemove}
-            >
-              <DeleteIcon fontSize='large' />
-            </IconButton>
-          </div>
-
+          {
+          valor !== 'A'
+            ? (
+              <div style={{ position: 'absolute', right: '8ch' }}>
+                <IconButton
+                  aria-label='delete'
+                  onClick={handleRemove}
+                >
+                  <DeleteIcon fontSize='large' />
+                </IconButton>
+              </div>
+              )
+            : null
+          }
         </Grid>
       </Paper>
     </Slide>

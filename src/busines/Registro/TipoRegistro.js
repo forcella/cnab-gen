@@ -2,16 +2,16 @@ import CampoRegistro from './CampoRegistro'
 
 export const registroA = {
   data: [
-    new CampoRegistro({ id: 'A01', inicio: 1, fim: 1, valor: 'A' }),
-    new CampoRegistro({ id: 'A02', inicio: 2, fim: 2, valor: null }),
-    new CampoRegistro({ id: 'A03', inicio: 3, fim: 22, valor: null }),
-    new CampoRegistro({ id: 'A04', inicio: 23, fim: 42, valor: null }),
-    new CampoRegistro({ id: 'A05', inicio: 43, fim: 45, valor: null }),
-    new CampoRegistro({ id: 'A06', inicio: 46, fim: 65, valor: null }),
-    new CampoRegistro({ id: 'A07', inicio: 66, fim: 73, valor: null }),
-    new CampoRegistro({ id: 'A08', inicio: 74, fim: 79, valor: null }),
-    new CampoRegistro({ id: 'A09', inicio: 80, fim: 81, valor: null }),
-    new CampoRegistro({ id: 'A10', inicio: 82, fim: 98, valor: null })
+    new CampoRegistro({ id: 'A01', inicio: 1, fim: 1, valor: 'A', tipo: 'title', label: 'Código do Registro' }),
+    new CampoRegistro({ id: 'A02', inicio: 2, fim: 2, valor: null, tipo: 'text', label: 'Código Remessa' }),
+    new CampoRegistro({ id: 'A03', inicio: 3, fim: 22, valor: null, tipo: 'text', label: 'Código Convênio' }),
+    new CampoRegistro({ id: 'A04', inicio: 23, fim: 42, valor: null, tipo: 'text', label: 'Nome Destinatário' }),
+    new CampoRegistro({ id: 'A05', inicio: 43, fim: 45, valor: null, tipo: 'text', label: 'Código Depositaria' }),
+    new CampoRegistro({ id: 'A06', inicio: 46, fim: 65, valor: null, tipo: 'text', label: 'Nome Depositaria' }),
+    new CampoRegistro({ id: 'A07', inicio: 66, fim: 73, valor: null, tipo: 'date', label: 'Data de Geração' }),
+    new CampoRegistro({ id: 'A08', inicio: 74, fim: 79, valor: null, tipo: 'text', label: 'Número NSA' }),
+    new CampoRegistro({ id: 'A09', inicio: 80, fim: 81, valor: null, tipo: 'text', label: 'Versão Layout' }),
+    new CampoRegistro({ id: 'A10', inicio: 82, fim: 98, valor: null, tipo: 'text', label: 'ID Serviço' })
   ]
 }
 

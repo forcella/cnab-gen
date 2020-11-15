@@ -1,4 +1,10 @@
-import { addInArrayWithId, removeInArrayById, reorderArray, replaceInArray } from '../../utils/arrayUtils'
+import {
+  addInArrayWithId,
+  removeInArrayById,
+  reorderArray,
+  replaceInArray,
+  editElement
+} from '../../utils/arrayUtils'
 
 export default function cnab150Reducer (state, action) {
   // console.log(action.registro)
@@ -14,6 +20,9 @@ export default function cnab150Reducer (state, action) {
     }
     case 'reorder': {
       return { registros: reorderArray(state.registros, action.inicio, action.fim) }
+    }
+    case 'edit': {
+      return { registros: editElement(state.registros, action.idPai, action.id, action.valor) }
     }
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)

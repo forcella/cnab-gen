@@ -1,6 +1,7 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import MomentUtils from '@date-io/moment'
+
 import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker
@@ -9,6 +10,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
+
+import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
+import { editaRegistro } from '../../provider/cnab150Provider/actions'
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -24,19 +28,34 @@ const useStyles = makeStyles((theme) => ({
 
 const GeraCampo = (props) => {
   const { tipo, id, label, disabled } = props.registro
+  const { idPai } = props
 
   const classes = useStyles()
-  const [selectedDate, setSelectedDate] = React.useState(null)
 
-  const handleDateChange = (date) => {
-    setSelectedDate(date)
+  const [, useCbnab150Dispatch] = useCbnab150Context()
+  const [value, setValue] = React.useState(tipo === 'date' ? null : '')
+
+  const handleValueChange = event => {
+    const { target } = event
+    if (event?._isAMomentObject) {
+      setValue(event.format('yyyyMMDD'))
+    } else {
+      setValue(target.value)
+    }
   }
+
+  React.useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (value && value.length > 0) editaRegistro(useCbnab150Dispatch, idPai, id, value)
+    }, 1000)
+    return () => clearTimeout(delayDebounceFn)
+  }, [value, id, idPai, useCbnab150Dispatch])
 
   switch (tipo) {
     case 'text':
       return (
         <Grid item>
-          <TextField id={id} label={label} disabled={disabled} />
+          <TextField id={id} label={label} disabled={disabled} value={value} onChange={handleValueChange} />
         </Grid>
       )
     case 'number':
@@ -57,8 +76,8 @@ const GeraCampo = (props) => {
               margin='normal'
               id={id}
               label={label}
-              value={selectedDate}
-              onChange={handleDateChange}
+              value={value}
+              onChange={handleValueChange}
               KeyboardButtonProps={{
                 'aria-label': 'change date'
               }}

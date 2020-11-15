@@ -22,3 +22,7 @@ export async function subtistitui (dispatch, id, novoValor, setShow, setDirectio
     dispatch({ type: 'replace', id, novoValor })
   }, 150)
 }
+
+export async function editaRegistro (dispatch, idPai, id, valor) {
+  dispatch({ type: 'edit', id, idPai, valor })
+}
