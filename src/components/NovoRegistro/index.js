@@ -12,8 +12,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
 
-import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
-import { removeRegistro } from '../../provider/cnab150Provider/actions'
 import GeraCampo from '../../components/GeraCampo'
 
 const useStyles = makeStyles((theme) => ({
@@ -29,17 +27,21 @@ function NovoRegistro (props) {
 
   const { valor } = data[0]
 
-  const { elevation } = props
+  const { elevation, onRemove } = props
 
   const [show, setShow] = React.useState(true)
 
   const [direction, setDirection] = React.useState('right')
 
-  const [, useCbnab150Dispatch] = useCbnab150Context()
   const classes = useStyles()
 
   const handleRemove = () => {
-    removeRegistro(useCbnab150Dispatch, id, setShow, setDirection)
+    onRemove(id, animationCallBack)
+  }
+
+  const animationCallBack = () => {
+    setDirection('left')
+    setShow(false)
   }
 
   return (

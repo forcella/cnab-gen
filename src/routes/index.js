@@ -6,6 +6,7 @@ import Breadcrumbs from '@material-ui/core/Breadcrumbs'
 
 import { Link, Route, Switch } from 'react-router-dom'
 
+import Cnab150Provider from '../provider/cnab150Provider/provider'
 import Cnab150 from '../pages/Cnab150'
 
 function Routes () {
@@ -26,7 +27,12 @@ function Routes () {
       </AppBar>
 
       <Switch>
-        <Route exact path='/'><Cnab150 /></Route>
+
+        <Route exact path='/'>
+          <Cnab150Provider>
+            <Cnab150 />
+          </Cnab150Provider>
+        </Route>
       </Switch>
     </>
   )

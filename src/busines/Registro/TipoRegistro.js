@@ -1,6 +1,6 @@
 import CampoRegistro from './CampoRegistro'
 
-export const registroA = () => (
+const geraRegistroA = () => (
   {
     data: [
       new CampoRegistro({ id: 'A01', inicio: 1, fim: 1, valor: 'A', tipo: 'title', label: 'Código do Registro' }),
@@ -17,7 +17,7 @@ export const registroA = () => (
   }
 )
 
-const registroB = () => (
+const geraRegistroB = () => (
   {
     data: [
       new CampoRegistro({ id: 'B01', inicio: 1, fim: 1, valor: 'B', tipo: 'title', label: 'Código do Registro' }),
@@ -33,7 +33,16 @@ const registroB = () => (
 
 export function geraRegistro (tipo) {
   return {
-    A: registroA(),
-    B: registroB()
+    A: geraRegistroA(),
+    B: geraRegistroB()
   }[tipo]
 }
+
+export const opcoesCnab150 = [
+  { value: 'B', label: 'Cancelamento de Débito', disabled: false },
+  { value: 'C', label: 'Ocorrências no Cancelamento do Débito Automático', disabled: false },
+  { value: 'D', label: 'Alterar / Cancelar Débito Automático<', disabled: false },
+  { value: 'J', label: 'Confirmação de Processamento de Arquivo', disabled: false },
+  { value: 'T', label: 'Total de clientes debitados', disabled: false },
+  { value: 'X', label: 'Relação de Agências', disabled: false }
+]

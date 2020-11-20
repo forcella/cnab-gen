@@ -16,9 +16,6 @@ import Grid from '@material-ui/core/Grid'
 
 import { geraRegistro } from '../../busines/Registro/TipoRegistro'
 
-import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
-import { subtistitui, removeRegistro } from '../../provider/cnab150Provider/actions'
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(3),
@@ -32,23 +29,27 @@ const useStyles = makeStyles((theme) => ({
 
 function EscolheTipoRegistro (props) {
   const { id } = props?.registro
-  const { elevation } = props
+  const { elevation, onChange, onRemove, options } = props
   const classes = useStyles()
 
   const [tipoRegistro, setTipoRegistro] = React.useState('')
   const [show, setShow] = React.useState(true)
   const [direction, setDirection] = React.useState('right')
-  const [, useCbnab150Dispatch] = useCbnab150Context()
 
   const handleChange = async (event) => {
     const { value } = event.target
     const registro = geraRegistro(value)
     setTipoRegistro(value)
-    subtistitui(useCbnab150Dispatch, id, registro, setShow, setDirection)
+    onChange(id, registro, animationCallBack)
   }
 
   const handleRemove = () => {
-    removeRegistro(useCbnab150Dispatch, id, setShow, setDirection)
+    onRemove(id, animationCallBack)
+  }
+
+  const animationCallBack = () => {
+    setDirection('left')
+    setShow(false)
   }
 
   return (
@@ -64,13 +65,17 @@ function EscolheTipoRegistro (props) {
                 value={tipoRegistro}
                 onChange={handleChange}
               >
-                <MenuItem value='B'>"B" - Cancelamento de Débito</MenuItem>
-                <MenuItem disabled value='C'>"C" - Ocorrências no Cancelamento do Débito Automático</MenuItem>
-                <MenuItem disabled value='D'>"D" - Alterar / Cancelar Débito Automático</MenuItem>
-                <MenuItem disabled value='J'>"J" - Confirmação de Processamento de Arquivos</MenuItem>
-                <MenuItem disabled value='T'>"T" - Total de clientes debitados</MenuItem>
-                <MenuItem disabled value='X'>"X" - Relação de Agências</MenuItem>
-
+                {
+                  options.map(op => (
+                    <MenuItem
+                      key={op.value}
+                      value={op.value}
+                      disabled={op.disabled}
+                    >
+                      {`"${op.value}" - ${op.label}`}
+                    </MenuItem>
+                  ))
+                }
               </Select>
             </FormControl>
           </Grid>

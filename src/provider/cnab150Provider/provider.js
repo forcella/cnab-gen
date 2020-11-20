@@ -35,4 +35,5 @@ function useCbnab150Context () {
   return [useCnab150State(), useCbnab150Dispatch()]
 }
 
-export { Cnab150Provider, useCbnab150Context }
+export { useCbnab150Context }
+export default Cnab150Provider

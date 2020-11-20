@@ -1,20 +1,17 @@
 import React from 'react'
 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd'
-
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles'
 import Fab from '@material-ui/core/Fab'
 import AddIcon from '@material-ui/icons/Add'
 
-import EscolheTipoRegistro from '../../components/EscolheTipoRegistro'
-import NovoRegistro from '../../components/NovoRegistro'
+import Registros from '../../components/Registros'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 
-import { addRegistro, reordena } from '../../provider/cnab150Provider/actions'
+import { addRegistro, reordena, subtistitui, removeRegistro } from '../../provider/cnab150Provider/actions'
 
-import { registroA } from '../../busines/Registro/TipoRegistro'
+import { geraRegistro, opcoesCnab150 } from '../../busines/Registro/TipoRegistro'
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
@@ -34,57 +31,37 @@ function Cbnab150 () {
   const [useCnab150State, useCbnab150Dispatch] = useCbnab150Context()
 
   React.useEffect(() => {
-    if (useCnab150State?.registros?.length === 0) addRegistro(useCbnab150Dispatch, registroA())
-  }, [])
+    if (useCnab150State?.registros?.length === 0) addRegistro(useCbnab150Dispatch, geraRegistro('A'))
+  }, [useCbnab150Dispatch, useCnab150State])
 
   const handleAddRegistro = () => {
     addRegistro(useCbnab150Dispatch, {})
   }
 
-  const handleOnDragEnd = result => {
+  const onReorder = result => {
     if (!result.destination) {
       return
     }
     reordena(useCbnab150Dispatch, result.source.index, result.destination.index)
   }
 
-  const handleOnDrag = isDraggin => isDraggin ? 3 : 1
+  const onRemove = (id, animationCallback) => {
+    removeRegistro(useCbnab150Dispatch, id, animationCallback)
+  }
+
+  const onChange = (id, novoValor, animationCallback) => {
+    subtistitui(useCbnab150Dispatch, id, novoValor, animationCallback)
+  }
 
   return (
     <Container className={classes.mainContainer}>
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId='droppable'>
-          {(provided, snapshot) => (
-            <div
-              {...provided.droppableProps}
-              ref={provided.innerRef}
-            >
-              {useCnab150State.registros.map((item, index) => (
-                <Draggable key={item.id} draggableId={'id' + item.id} index={index}>
-                  {(provided, snapshot) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      {!item.data
-                        ? <EscolheTipoRegistro
-                            key={item.id} registro={item}
-                            elevation={handleOnDrag(snapshot.isDragging)}
-                          />
-                        : <NovoRegistro
-                            key={item.id} registro={item}
-                            elevation={handleOnDrag(snapshot.isDragging)}
-                          />}
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <Registros
+        registros={useCnab150State?.registros}
+        options={opcoesCnab150}
+        onReorder={onReorder}
+        onChange={onChange}
+        onRemove={onRemove}
+      />
 
       <Fab
         color='primary' aria-label='add'
