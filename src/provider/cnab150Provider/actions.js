@@ -1,5 +1,5 @@
-export async function addRegistro (dispatch, registro) {
-  dispatch({ type: 'add', registro })
+export async function addRegistro (dispatch, registro, addInMidle) {
+  dispatch({ type: 'add', registro, addInMidle })
 }
 
 export async function removeRegistro (dispatch, id, animationCallBack) {

@@ -3,7 +3,14 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const removeInArrayById = (arr, id) => (arr.filter(ele => (ele.id !== id)))
 
-export const addInArrayWithId = (arr, ele) => ([...arr, { id: uuidv4(), ...ele }])
+export const addInArrayWithId = (arr, ele, midle) => {
+  return midle ? addInMidle(arr, ele) : ([...arr, { id: uuidv4(), ...ele }])
+}
+export const addInMidle = (arr, ele) => {
+  const length = arr.length
+  arr = [...arr.slice(0, length - 1), { id: uuidv4(), ...ele }, arr[length - 1]]
+  return arr
+}
 
 export const reorderArray = (arr, startIndex, endIndex) => {
   const result = Array.from(arr)

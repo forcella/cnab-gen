@@ -6,7 +6,7 @@ import EscolheTipoRegistro from '../EscolheTipoRegistro'
 import NovoRegistro from '../NovoRegistro'
 
 export default function Registros (props) {
-  const { registros, onReorder, onChange, onRemove, options } = props
+  const { registros, onReorder, onChange, onValueChange, onRemove, options } = props
 
   const handleOnDrag = isDraggin => isDraggin ? 3 : 1
 
@@ -37,6 +37,7 @@ export default function Registros (props) {
                       : <NovoRegistro
                           onChange={onChange}
                           onRemove={onRemove}
+                          onValueChange={onValueChange}
                           key={item.id} registro={item}
                           elevation={handleOnDrag(snapshot.isDragging)}
                         />}

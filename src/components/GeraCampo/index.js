@@ -12,9 +12,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 import Grid from '@material-ui/core/Grid'
 
-import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
-import { editaRegistro } from '../../provider/cnab150Provider/actions'
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     margin: theme.spacing(3),
@@ -29,28 +26,23 @@ const useStyles = makeStyles((theme) => ({
 
 const GeraCampo = (props) => {
   const { tipo, id, label, disabled } = props.registro
-  const { idPai } = props
+  const { idPai, onValueChange } = props
 
   const classes = useStyles()
 
-  const [, useCbnab150Dispatch] = useCbnab150Context()
   const [value, setValue] = React.useState(tipo === 'date' ? null : '')
 
   const handleValueChange = event => {
     const { target } = event
     if (event?._isAMomentObject) {
-      setValue(event.format('yyyyMMDD'))
+      const date = event.format('yyyyMMDD')
+      setValue(date)
+      onValueChange(idPai, id, date)
     } else {
       setValue(target.value)
+      onValueChange(idPai, id, target.value)
     }
   }
-
-  React.useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (value) editaRegistro(useCbnab150Dispatch, idPai, id, value)
-    }, 1000)
-    return () => clearTimeout(delayDebounceFn)
-  }, [value, id, idPai, useCbnab150Dispatch])
 
   switch (tipo) {
     case 'text':
@@ -62,7 +54,7 @@ const GeraCampo = (props) => {
     case 'number':
       return (
         <Grid item>
-          <TextField id={uuidv4()} label={label} type={tipo} disabled={disabled} />
+          <TextField id={uuidv4()} label={label} type={tipo} disabled={disabled} value={value} onChange={handleValueChange} />
         </Grid>
       )
     case 'date':

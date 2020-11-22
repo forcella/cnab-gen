@@ -8,7 +8,7 @@ import {
 
 export default function cnab150Reducer (state, action) {
   return {
-    add: { registros: addInArrayWithId(state.registros, action.registro) },
+    add: { registros: addInArrayWithId(state.registros, action.registro, action.addInMidle) },
     remove: { registros: removeInArrayById(state.registros, action.id) },
     replace: { registros: replaceInArray(state.registros, action.id, action.novoValor) },
     reorder: { registros: reorderArray(state.registros, action.inicio, action.fim) },

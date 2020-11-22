@@ -1,9 +1,12 @@
-import Routes from './routes'
+import Menu from './components/Menu'
+
 import './App.css'
 
 function App () {
   return (
-    <Routes />
+    <>
+      <Menu />
+    </>
   )
 }
 

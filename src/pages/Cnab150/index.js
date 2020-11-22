@@ -9,7 +9,7 @@ import Registros from '../../components/Registros'
 
 import { useCbnab150Context } from '../../provider/cnab150Provider/provider'
 
-import { addRegistro, reordena, subtistitui, removeRegistro } from '../../provider/cnab150Provider/actions'
+import { addRegistro, reordena, subtistitui, editaRegistro, removeRegistro } from '../../provider/cnab150Provider/actions'
 
 import { geraRegistro, opcoesCnab150 } from '../../busines/Registro/TipoRegistro'
 
@@ -22,20 +22,25 @@ const useStyles = makeStyles((theme) => ({
     position: 'fixed',
     bottom: theme.spacing(2),
     right: theme.spacing(2)
+  },
+  saveButton: {
+    position: 'fixed',
+    top: theme.spacing(3),
+    right: theme.spacing(2)
   }
 }))
 
-function Cbnab150 () {
+function Cbnab150 (props) {
   const classes = useStyles()
 
   const [useCnab150State, useCbnab150Dispatch] = useCbnab150Context()
 
   React.useEffect(() => {
-    if (useCnab150State?.registros?.length === 0) addRegistro(useCbnab150Dispatch, geraRegistro('A'))
+    if (useCnab150State?.registros?.length === 0) addRegistro(useCbnab150Dispatch, geraRegistro('A')) && addRegistro(useCbnab150Dispatch, geraRegistro('Z'))
   }, [useCbnab150Dispatch, useCnab150State])
 
   const handleAddRegistro = () => {
-    addRegistro(useCbnab150Dispatch, {})
+    addRegistro(useCbnab150Dispatch, {}, true)
   }
 
   const onReorder = result => {
@@ -53,6 +58,15 @@ function Cbnab150 () {
     subtistitui(useCbnab150Dispatch, id, novoValor, animationCallback)
   }
 
+  const onValueChange = (idPai, id, value) => {
+    editaRegistro(useCbnab150Dispatch, idPai, id, value)
+  }
+
+  React.useEffect(() => {
+    props.getData(useCnab150State.registros)
+    console.log(1)
+  }, [props, useCnab150State])
+
   return (
     <Container className={classes.mainContainer}>
       <Registros
@@ -61,6 +75,7 @@ function Cbnab150 () {
         onReorder={onReorder}
         onChange={onChange}
         onRemove={onRemove}
+        onValueChange={onValueChange}
       />
 
       <Fab

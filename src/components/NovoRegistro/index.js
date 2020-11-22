@@ -23,11 +23,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function NovoRegistro (props) {
-  const { data, id } = props?.registro
+  const { id, type, text, data } = props?.registro
 
-  const { valor } = data[0]
-
-  const { elevation, onRemove } = props
+  const { elevation, onRemove, onValueChange } = props
 
   const [show, setShow] = React.useState(true)
 
@@ -48,17 +46,22 @@ function NovoRegistro (props) {
     <Slide in={show} direction={direction}>
       <Paper elevation={elevation} className={classes.paper}>
         <Typography variant='subtitle1'>
-          Registro: "{valor}"
+          {`"${type}" - ${text}`}
         </Typography>
         <Grid container spacing={2}>
           {
             data.map(registro => (
-              <GeraCampo key={registro.id} registro={registro} idPai={id} />
+              <GeraCampo
+                key={registro.id}
+                registro={registro}
+                idPai={id}
+                onValueChange={onValueChange}
+              />
             ))
           }
 
           {
-          valor !== 'A'
+          !['A', 'Z'].includes(type)
             ? (
               <div style={{ position: 'absolute', right: '8ch' }}>
                 <IconButton
